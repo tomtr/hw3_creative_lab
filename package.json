@@ -4,7 +4,7 @@
   "description": "My HTML/JS/CSS app",
   "main": "sketch.js",
   "scripts": {
-    "start": "node sketch.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.19.2"

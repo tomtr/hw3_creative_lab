@@ -18,18 +18,9 @@ const HEIGHT_ = 800;
 
 async function fetchSongs() {
     try {
-        const targetUrl = `https://corsproxy.io/?key=?q=${encodeURIComponent(GENIUS_ACCESS_TOKEN)}&url=https%3A%2F%2Fapi.genius.com%2Fsearch?q=${encodeURIComponent(query)}`;
+        const response = await fetch(`/api/search-songs?q=${encodeURIComponent(query)}`);
 
-
-        const response = await fetch(targetUrl, {
-            headers: {
-                'Authorization': `Bearer ${GENIUS_ACCESS_TOKEN}`,
-                'X-Requested-With': 'XMLHttpRequest'
-            }
-        });
-
-
-        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status} ${response.statusText}`);
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
         const data = await response.json();
         const hits = data.response.hits;
@@ -98,7 +89,7 @@ async function fetchLyrics(song) {
         return [];
     }
 }
-
+// Thanks to gemini for the following function!
 function extractLanguagesSeparately(text) {
     const regex = /([\u0590-\u05FF]+|[a-zA-Z]+)/g;
 

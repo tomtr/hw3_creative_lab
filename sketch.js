@@ -1,3 +1,4 @@
+
 let my_data = [];
 let lyrics_arr = [];
 let accumulating_lyrics= '';

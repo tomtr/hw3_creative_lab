@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.static(__dirname));
 // Secure backend endpoint for Genius search
 app.get('/api/search-songs', async (req, res) => {
+    console.log("hello from server")
     const query = req.query.q || "hello";
     const token = process.env.ACCESS_TOKEN; // Stored safely on Render
 

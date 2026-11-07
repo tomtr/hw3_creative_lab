@@ -1,3 +1,4 @@
+const GENIUS_ACCESS_TOKEN = process.env.GENIUS_ACCESS_TOKEN; 
 
 let my_data = [];
 let lyrics_arr = [];

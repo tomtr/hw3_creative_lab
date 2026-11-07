@@ -1,4 +1,4 @@
-
+const GENIUS_ACCESS_TOKEN = window.ENV.ACCESS_TOKEN;
 let my_data = [];
 let lyrics_arr = [];
 let accumulating_lyrics= '';

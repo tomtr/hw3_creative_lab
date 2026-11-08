@@ -130,11 +130,12 @@ function draw() {
     if (my_data.length > 0 && flag_first_fetched == -1) {
         flag_first_fetched = time;
     }
+    
+    alpha = map(timeModulo, 0, 60 * seconds, 100, 0);
 
     if (flag_first_fetched > -1) {
         var timeModulo = (time - flag_first_fetched) % (60 * seconds);
         var timeModuloSongLine = (time - flag_first_fetched) % (60 * (seconds / 5));
-        alpha = map(timeModulo, 0, 60 * seconds, 100, 0);
         fill(233, 28, 30, alpha);
         textSize(40);
         var font = "IM Fell DW Pica";

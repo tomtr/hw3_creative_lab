@@ -15,10 +15,17 @@ var track_name;
 var text_dir = 'ltr';
 const WIDTH_ = 800;
 const HEIGHT_ = 800;
+const isLocal = window.location.hostname === "localhost" || 
+                window.location.hostname === "127.0.0.1" || 
+                window.location.hostname === "";
+let fetch_URL =`/api/search-songs?q=${encodeURIComponent(query)}`;
+if (isLocal){
+    fetch_URL =`https://corsproxy.io/?key=webdemo1&url=https%3A%2F%2Fhw3-creative-lab-c7s7.onrender.com%2Fapi%2Fsearch-songs%3Fq%3D${encodeURIComponent(query)}`
+}
 
 async function fetchSongs() {
     try {
-        const response = await fetch(`/api/search-songs?q=${encodeURIComponent(query)}`);
+        const response = await fetch(fetch_URL);
 
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
@@ -134,7 +141,7 @@ function draw() {
     if (flag_first_fetched > -1) {
         var timeModulo = (time - flag_first_fetched) % (60 * seconds);
         var timeModuloSongLine = (time - flag_first_fetched) % (60 * (seconds / 5));
-        alpha = map(timeModulo, 0, 60 * seconds, 100, 0);
+        alpha = map(timeModulo, 0, 30 * seconds, 100, 0);
         fill(233, 28, 30, alpha);
         textSize(40);
         var font = "IM Fell DW Pica";

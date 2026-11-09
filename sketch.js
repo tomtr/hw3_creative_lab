@@ -19,8 +19,11 @@ const isLocal = window.location.hostname === "localhost" ||
                 window.location.hostname === "127.0.0.1" || 
                 window.location.hostname === "";
 let fetch_URL =`/api/search-songs?q=${encodeURIComponent(query)}`;
-if (isLocal || window.location.href==="https://hw3-creative-lab-wxcy.onrender.com"){
+if (isLocal){
     fetch_URL =`https://corsproxy.io/?key=webdemo1&url=https%3A%2F%2Fhw3-creative-lab-c7s7.onrender.com%2Fapi%2Fsearch-songs%3Fq%3D${encodeURIComponent(query)}`
+}
+if (window.location.href==="https://hw3-creative-lab-wxcy.onrender.com") {
+      fetch_URL =`https://hw3-creative-lab-c7s7.onrender.com/api/search-songs?q={encodeURIComponent(query)}`
 }
 
 async function fetchSongs() {

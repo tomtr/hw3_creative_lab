@@ -1,29 +1,42 @@
 const GENIUS_ACCESS_TOKEN = window.ENV.ACCESS_TOKEN;
+var font = "IM Fell DW Pica";
 let my_data = [];
 let lyrics_arr = [];
 let accumulating_lyrics= '';
 let time = 0;
 var alpha = 100
-var searchTerm = "hello";
 var song_line = 0;
-const query = `${searchTerm}`;
+var searchTerm = "";
+
 var historical_data = [];
 var flag_first_fetched = -1
 var rnd = 0;
 var rnd_data;
 var track_name;
 var text_dir = 'ltr';
-const WIDTH_ = 800;
-const HEIGHT_ = 800;
-const isLocal = window.location.hostname === "localhost" || 
-                window.location.hostname === "127.0.0.1" || 
-                window.location.hostname === "";
-let fetch_URL =`/api/search-songs?q=${encodeURIComponent(query)}`;
-if (isLocal){
-    fetch_URL =`https://corsproxy.io/?key=webdemo1&url=https%3A%2F%2Fhw3-creative-lab-c7s7.onrender.com%2Fapi%2Fsearch-songs%3Fq%3D${encodeURIComponent(query)}`
-}
+const WIDTH_ = 1300;
+const HEIGHT_ = 700;
 
-async function fetchSongs() {
+let x = 200,
+  y = 200;
+let centerX = WIDTH_/2,
+  centerY = HEIGHT_/10;
+
+let angle = 0;
+let diameter = 100;
+let radius = diameter / 2;
+let hue = 0;
+let movement_rad = 50;
+let flag_small = 0;
+let max_rad = 200;
+let direction = 1;
+
+let queryInput,submit;
+
+// Fetch songs according to user query
+async function fetchSongs(query) {
+    let fetch_URL =`/api/search-songs?q=${encodeURIComponent(query)}`;
+
     try {
         const response = await fetch(fetch_URL);
 
@@ -60,6 +73,7 @@ async function fetchSongs() {
     }
 }
 
+// Fetch lyrics for the songs
 async function fetchLyrics(song) {
     var query_song_name = song.track_name + " " + song.artist_name;
     var query_song_name_heb = extractLanguagesSeparately(query_song_name).hebrew
@@ -116,17 +130,114 @@ function extractLanguagesSeparately(text) {
     return { hebrew: hebrewWords, english: englishWords };
 }
 
-fetchSongs().then((songs) => {
+// Interactive colorful circle
+class Thing {
+  constructor(centerX, centerY) {
+    this.centerX = centerX;
+    this.centerY = centerY;
+  }
+  show(){
+    hue = (time * 2) % 360;
+    if (mouseIsPressed) {
+      diameter -= 1;
+      flag_small = 1;
+    } else {
+      if (flag_small == 1) {
+        max_rad = 500;
+        flag_small = 0;
+      }
+      if (diameter < max_rad) {
+        diameter += 1;
+      }
+    }
+
+    x = centerX ;
+    y = centerY;
+
+    push();
+    fill(hue, 40, 90, 100);
+    noStroke();
+    blendMode(LIGHTEST);
+    circle(x, y, diameter);
+    pop();
+    angle += (2 * Math.PI * 0.005) % (2 * Math.PI);
+  }
+}
+
+// For interactive circle
+function mouseDragged() {
+  (centerX = mouseX), (centerY = mouseY);
+}
+function mousePressed() {
+  (centerX = mouseX), (centerY = mouseY);
+}
+
+
+// Handle Submit button
+ function handleSubmit() {
+  let textEntered = queryInput.value().trim();
+  if (textEntered !== "") {
+    searchTerm = textEntered;
+    const query = `${searchTerm}`;
+    queryInput.value(''); 
+queryInput.remove();
+        submit.remove()
+        queryTitle.remove()
+        queryTitle='';
+    fetchSongs(query).then((songs) => {
     songs.forEach(async (song) => {
         const lyrics = await fetchLyrics(song);
         my_data = my_data.concat(lyrics.filter(item => item.plainLyrics));
+        
+
     });
 });
+    
+  }
+}
+    // Center things... so complicated
+function centerTop(element,top_px){
+    element.style('width', '100%');
+element.style('text-align', 'center');
+element.style('position', 'absolute');
+element.style('top', top_px); 
+element.style('margin', '0'); 
+}
 
-function setup() {
+async function setup() {
     createCanvas(WIDTH_, HEIGHT_);
     colorMode(HSB, 360, 100, 100, 100);
     background(0, 0, 100);
+    
+// Query for song input
+
+    queryTitle = createP("Pick a word - בחרו מילה")
+centerTop(queryTitle,'10px')
+
+    queryTitle.style('font-size', '90px')
+    queryTitle.style('font-family','IM Fell DW Pica')
+
+    // Input & submit button
+    queryInput = createInput();
+    queryInput.style('font-size', '80px')
+    queryInput.style('font-family','IM Fell DW Pica')
+    queryInput.style('height', '1.5em');
+    queryInput.style('text-align', 'center');
+
+centerTop(queryInput,'100px')
+
+
+      submit = createButton('Submit');
+    submit.position(0, 250);
+    submit.style('font-size', '80px')
+    submit.style('font-family','IM Fell DW Pica')
+    submit.style('height', '1.5em');
+    centerTop(submit,'250px')
+ queryInput.changed(handleSubmit);
+  submit.mousePressed(handleSubmit);
+
+
+
 
 }
 
@@ -134,25 +245,35 @@ function draw() {
 
     var seconds = 30
 
+    // handle first successful fetch 
     if (my_data.length > 0 && flag_first_fetched == -1) {
         flag_first_fetched = time;
+
+// creating colorful interactive circle
+let thing = new Thing(centerX, centerY);
+  thing.show();
     }
 
     if (flag_first_fetched > -1) {
+        //count time for the fetched song and each song line
         var timeModulo = (time - flag_first_fetched) % (60 * seconds);
         var timeModuloSongLine = (time - flag_first_fetched) % (60 * (seconds / 5));
+       
+        // some text properties
         alpha = map(timeModulo, 0, 30 * seconds, 100, 0);
-        fill(233, 28, 30, alpha);
-        textSize(40);
-        var font = "IM Fell DW Pica";
+        fill(360-hue, 40, 90, alpha);
+        textSize(90);
+        drawingContext.direction = 'ltr'; 
         textFont(font);
-        //textDirection(text_dir);
-        textAlign(LEFT, TOP);
+        textAlign(CENTER,TOP);
         noStroke();
 
+        // initializing a new song
         if (timeModulo == 0) {
             song_line = 0;
             accumulating_lyrics ='';
+
+            //random song from the fetched list, not the same as the one before
             var rnd_curr = Math.floor(Math.random() * my_data.length)
             while (my_data.length > 1 && rnd == rnd_curr) {
                 rnd_curr = Math.floor(Math.random() * my_data.length)
@@ -164,6 +285,7 @@ function draw() {
             lyrics_arr = rand_lyrics.split("\n");
         }
 
+        // handling adding more song lines 
         if (timeModuloSongLine == 0 && song_line < lyrics_arr.length) {
             background(0, 0, 100);
             accumulating_lyrics += `${lyrics_arr[song_line]}\n`

@@ -243,7 +243,6 @@ centerTop(queryInput,'100px')
 }
 
 function draw() {
-    background(0, 0, 100);
 
     // interactive circle 
     if (flag_first_fetched > -1) {

@@ -238,12 +238,11 @@ centerTop(queryInput,'100px')
   submit.mousePressed(handleSubmit);
 
 
-
-
 }
 
 function draw() {
 
+    background(0, 0, 100);
     var seconds = 30
 
     // handle first successful fetch 
@@ -262,8 +261,9 @@ let thing = new Thing(centerX, centerY);
        
         // some text properties
         alpha = map(timeModulo, 0, 60 * seconds, 100, 0);
-        fill(360-hue, 40, 90, alpha);
-        textSize(90);
+        //fill(360-hue, 40, 90, alpha);
+         fill(0, 0, 0, alpha);
+        textSize(50);
         drawingContext.direction = 'ltr'; 
         textFont(font);
         textAlign(CENTER,TOP);
@@ -288,11 +288,12 @@ let thing = new Thing(centerX, centerY);
 
         // handling adding more song lines 
         if (timeModuloSongLine == 0 && song_line < lyrics_arr.length) {
-            background(0, 0, 100);
             accumulating_lyrics += `${lyrics_arr[song_line]}\n`
             song_line += 1;
         }
-         text(accumulating_lyrics, 50 , 50, WIDTH_, 200);
+         
+        text(accumulating_lyrics, 50 , 50, WIDTH_, 200);
+        pop();
     }
 
     time += 1;

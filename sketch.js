@@ -244,56 +244,55 @@ centerTop(queryInput,'100px')
 
 function draw() {
 
-    // interactive circle 
-    if (flag_first_fetched > -1) {
-        let thing = new Thing(centerX, centerY);
-        thing.show();
-    }
-
-    var seconds = 30;
+    var seconds = 30
 
     // handle first successful fetch 
     if (my_data.length > 0 && flag_first_fetched == -1) {
         flag_first_fetched = time;
+
+// creating colorful interactive circle
+let thing = new Thing(centerX, centerY);
+  thing.show();
     }
 
     if (flag_first_fetched > -1) {
-        // count time for the fetched song and each song line
+        //count time for the fetched song and each song line
         var timeModulo = (time - flag_first_fetched) % (60 * seconds);
         var timeModuloSongLine = (time - flag_first_fetched) % (60 * (seconds / 5));
        
-        // initializing a new song loop
+        // some text properties
+        alpha = map(timeModulo, 0, 60 * seconds, 100, 0);
+        fill(360-hue, 40, 90, alpha);
+        textSize(90);
+        drawingContext.direction = 'ltr'; 
+        textFont(font);
+        textAlign(CENTER,TOP);
+        noStroke();
+
+        // initializing a new song
         if (timeModulo == 0) {
             song_line = 0;
-            accumulating_lyrics = '';
+            accumulating_lyrics ='';
 
-            var rnd_curr = Math.floor(Math.random() * my_data.length);
+            //random song from the fetched list, not the same as the one before
+            var rnd_curr = Math.floor(Math.random() * my_data.length)
             while (my_data.length > 1 && rnd == rnd_curr) {
-                rnd_curr = Math.floor(Math.random() * my_data.length);
+                rnd_curr = Math.floor(Math.random() * my_data.length)
             }
             rnd = rnd_curr;
-            rnd_data = my_data[rnd];
+            rnd_data = my_data[rnd]
             var rand_lyrics = rnd_data.plainLyrics;
             track_name = rnd_data.name;
             lyrics_arr = rand_lyrics.split("\n");
         }
 
+        // handling adding more song lines 
         if (timeModuloSongLine == 0 && song_line < lyrics_arr.length) {
-            accumulating_lyrics += `${lyrics_arr[song_line]}\n`;
+            background(0, 0, 100);
+            accumulating_lyrics += `${lyrics_arr[song_line]}\n`
             song_line += 1;
         }
-
-        push();
-        alpha = map(timeModulo, 0, 60 * seconds, 100, 0); 
-        fill(360 - hue, 40, 90, alpha);
-        textSize(50); 
-        drawingContext.direction = text_dir; 
-        textFont(font);
-        textAlign(CENTER, CENTER);
-        noStroke();
-        
-        text(accumulating_lyrics, 50, 50, WIDTH_ - 100, HEIGHT_ - 100);
-        pop();
+         text(accumulating_lyrics, 50 , 50, WIDTH_, 200);
     }
 
     time += 1;

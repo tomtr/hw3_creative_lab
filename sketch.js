@@ -32,7 +32,7 @@ let max_rad = 200;
 let direction = 1;
 
 let queryInput, submit;
-const YEAR = 1990;
+const YEAR = 2000;
 
 // Fetch songs according to user query
 async function fetchSongs(query) {
@@ -196,6 +196,7 @@ function handleSubmit() {
 
     }
 }
+
 // Center things... so complicated
 function centerTop(element, top_px) {
     element.style('width', '100%');
@@ -211,7 +212,6 @@ async function setup() {
     background(0, 0, 100);
 
     // Query for song input
-
     queryTitle = createP("Pick a word - בחרו מילה")
     centerTop(queryTitle, '10px')
 
@@ -261,7 +261,7 @@ function draw() {
 
         // some text properties
         alpha = map(timeModulo, 0, 60 * seconds, 100, 0);
-        //fill(360-hue, 40, 90, alpha);
+        // fill(360-hue, 40, 90, alpha);
         fill(0, 0, 0, alpha);
         textSize(50);
         drawingContext.direction = 'ltr';

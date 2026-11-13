@@ -290,6 +290,7 @@ function draw() {
     }
 
     if (thing != '') {
+        console.log("showing thing")
         thing.show();
     }
 

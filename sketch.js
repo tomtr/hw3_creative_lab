@@ -173,7 +173,7 @@ class Thing {
         this.centerY = centerY;
     }
     show() {
-        hue = (time * 2) % 360;
+        hue = (time) % 360;
         if (mouseIsPressed) {
             diameter -= 1;
             flag_small = 1;
@@ -326,7 +326,7 @@ function draw() {
         }
         // some text properties
         alpha = map(timeModulo, 0, 60 * seconds, 100, 0);
-        // fill(360-hue, 40, 90, alpha);
+        fill(360-hue, 40, 90, alpha);
         fill(0, 0, 0, alpha);
         drawingContext.direction = 'ltr';
         textFont(font);

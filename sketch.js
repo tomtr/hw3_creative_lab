@@ -111,9 +111,8 @@ async function fetchLyrics(song) {
                 seen.add(item.name);
                 return !duplicate;
             });
-           // const final_data = filterOutSongs(uniqueData)
-           // return final_data;
-           return uniqueData;
+           const final_data = filterOutSongs(uniqueData)
+           return final_data;
         } else {
             console.log("No lyrics found.");
             return [];
@@ -125,19 +124,14 @@ async function fetchLyrics(song) {
 }
 
 // Filter out songs with curse words.. thanks Tupac
-    function filterOutSongs(songsObj) {
-      const cleanPlaylist = {};
-
-      for (const [song, lyrics] of Object.entries(songsObj)) {
-        // Check if cleaning the text changes it
-        const hasProfanity = profanityCleaner.clean(lyrics) !== lyrics;
-        if (!hasProfanity) {
-          cleanPlaylist[song] = lyrics;
-        }
-      }
-
-      return cleanPlaylist;
-    }
+function filterOutSongs(songsArray) {
+  return songsArray.filter(song => {
+    const lyrics = song.plainLyrics || "";
+    // check if cleaning the text changes it (meaning profanity was found)
+    const hasProfanity = profanityCleaner.clean(lyrics) !== lyrics;
+    return !hasProfanity;
+  });
+}
 
 
 // Thanks to gemini for the following function!

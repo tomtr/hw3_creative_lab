@@ -112,6 +112,7 @@ async function fetchLyrics(song) {
                 seen.add(item.name);
                 return !duplicate;
             });
+            
            const final_data = filterOutSongs(uniqueData)
            return final_data;
         } else {
@@ -305,8 +306,9 @@ function draw() {
             rnd_data = my_data[rnd]
             var rand_lyrics = rnd_data.plainLyrics;
             track_name = rnd_data.name;
+            artist_name = rnd_data.artistName
             lyrics_arr = rand_lyrics.split("\n");
-            accumulating_lyrics = track_name+'\n\n';
+            accumulating_lyrics = track_name+ ' - by '+artist_name+'\n\n';
         }
 
         // handling adding more song lines 

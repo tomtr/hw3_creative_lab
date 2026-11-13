@@ -327,7 +327,7 @@ function draw() {
         // some text properties
         alpha = map(timeModulo, 0, 60 * seconds, 100, 0);
         fill(360-hue, 40, 90, alpha);
-        fill(0, 0, 0, alpha);
+        //fill(0, 0, 0, alpha);
         drawingContext.direction = 'ltr';
         textFont(font);
         textAlign(CENTER, TOP);

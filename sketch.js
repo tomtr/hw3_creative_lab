@@ -252,12 +252,12 @@ async function setup() {
     queryTitle = createP("Pick a word - בחרו מילה")
     centerTop(queryTitle, '10px')
 
-    queryTitle.style('font-size', '90px')
+    queryTitle.style('font-size', '80px')
     queryTitle.style('font-family', 'Gveret Levin')
 
     // Input & submit button
     queryInput = createInput();
-    queryInput.style('font-size', '80px')
+    queryInput.style('font-size', '50px')
     queryInput.style('font-family', 'Gveret Levin')
     queryInput.style('height', '1.5em');
     queryInput.style('text-align', 'center');
@@ -267,7 +267,7 @@ async function setup() {
 
     submit = createButton('Submit');
     submit.position(0, 250);
-    submit.style('font-size', '80px')
+    submit.style('font-size', '50px')
     submit.style('font-family', 'Gveret Levin')
     submit.style('height', '1.5em');
     centerTop(submit, '250px')

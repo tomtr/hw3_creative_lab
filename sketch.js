@@ -193,7 +193,7 @@ class Thing {
         push();
         fill(hue, 40, 90, 100);
         noStroke();
-        //blendMode(LIGHTEST);
+        blendMode(LIGHTEST);
         circle(x, y, diameter);
         pop();
         angle += (2 * Math.PI * 0.005) % (2 * Math.PI);
@@ -289,10 +289,6 @@ function draw() {
         thing = new Thing(centerX, centerY);
     }
 
-    if (thing != '') {
-        thing.show();
-    }
-
     if (flag_first_fetched == -2) {
         text(" no lyrics found:( try again with another word", 50, 50, WIDTH_, 200);
     }
@@ -316,7 +312,7 @@ function draw() {
             track_name = rnd_data.name;
             artist_name = rnd_data.artistName
             lyrics_arr = rand_lyrics.split("\n");
-            //accumulating_lyrics = +'\n\n';
+            accumulating_lyrics = '';
             if (!is_hebrew)
                 title = track_name + ' - by ' + artist_name;
             else title = track_name + ' - מאת ' + artist_name;
@@ -339,8 +335,11 @@ function draw() {
         textSize(70);
         text(title, 50, 50, WIDTH_, HEIGHT_ - 100);
         textSize(50);
-        text(accumulating_lyrics, 50, 150, WIDTH_, HEIGHT_ - 100);
+        text(accumulating_lyrics, 50, 150, WIDTH_, HEIGHT_);
 
+        if (thing != '') {
+            thing.show();
+        }
     }
 
     time += 1;

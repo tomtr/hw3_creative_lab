@@ -272,12 +272,7 @@ async function setup() {
 function draw() {
     background(0, 0, 100);
     var seconds = 30
-    alpha = map(timeModulo, 0, 60 * seconds, 100, 0);
-    fill(0, 0, 0, alpha);
-    drawingContext.direction = 'ltr';
-    textFont(font);
-    textAlign(CENTER, TOP);
-    noStroke();
+
     // handle first successful fetch 
     if (my_data.length > 0 && flag_first_fetched == -1) {
         flag_first_fetched = time;
@@ -313,7 +308,7 @@ function draw() {
             track_name = rnd_data.name;
             artist_name = rnd_data.artistName
             lyrics_arr = rand_lyrics.split("\n");
-            textSize(70);
+            //accumulating_lyrics = +'\n\n';
             text(track_name + ' - by ' + artist_name, 50, 50, WIDTH_, HEIGHT_ - 100);
         }
 
@@ -323,13 +318,17 @@ function draw() {
             song_line += 1;
         }
         // some text properties
-        textSize(50);
+        alpha = map(timeModulo, 0, 60 * seconds, 100, 0);
         // fill(360-hue, 40, 90, alpha);
+        fill(0, 0, 0, alpha);
+        textSize(50);
+        drawingContext.direction = 'ltr';
+        textFont(font);
+        textAlign(CENTER, TOP);
+        noStroke();
 
+        text(accumulating_lyrics, 50, 100, WIDTH_, HEIGHT_ - 100);
 
-        text(accumulating_lyrics, 50, 150, WIDTH_, HEIGHT_ - 100);
-
-        pop();
     }
 
     time += 1;

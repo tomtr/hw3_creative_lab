@@ -89,7 +89,7 @@ async function fetchLyrics(song) {
     try {
         const response = await fetch(`https://lrclib.net/api/search?q=${encodeURIComponent(query_song_name)}`);
 
-        if (!response.ok) throw new Error('Network response error: '+ response);
+        if (!response.ok) throw new Error('Network response error: ' + response);
 
         const data = await response.json();
 
@@ -189,7 +189,7 @@ function handleSubmit() {
             songs.forEach(async (song) => {
                 const lyrics = await fetchLyrics(song);
                 my_data = my_data.concat(lyrics.filter(item => item.plainLyrics));
-                if (my_data.length ==0){
+                if (my_data.length == 0) {
                     flag_first_fetched = -2
                 }
 
@@ -244,6 +244,16 @@ async function setup() {
 
 function draw() {
 
+    // some text properties
+    alpha = map(timeModulo, 0, 60 * seconds, 100, 0);
+    // fill(360-hue, 40, 90, alpha);
+    fill(0, 0, 0, alpha);
+    textSize(50);
+    drawingContext.direction = 'ltr';
+    textFont(font);
+    textAlign(CENTER, TOP);
+    noStroke();
+
     background(0, 0, 100);
     var seconds = 30
 
@@ -255,7 +265,7 @@ function draw() {
         let thing = new Thing(centerX, centerY);
         thing.show();
     }
-    
+
     if (flag_first_fetched == -2) {
         text(" no lyrics found:( try again with another word", 50, 50, WIDTH_, 200);
     }
@@ -264,16 +274,6 @@ function draw() {
         //count time for the fetched song and each song line
         var timeModulo = (time - flag_first_fetched) % (60 * seconds);
         var timeModuloSongLine = (time - flag_first_fetched) % (60 * (seconds / 5));
-
-        // some text properties
-        alpha = map(timeModulo, 0, 60 * seconds, 100, 0);
-        // fill(360-hue, 40, 90, alpha);
-        fill(0, 0, 0, alpha);
-        textSize(50);
-        drawingContext.direction = 'ltr';
-        textFont(font);
-        textAlign(CENTER, TOP);
-        noStroke();
 
         // initializing a new song
         if (timeModulo == 0) {

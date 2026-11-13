@@ -189,7 +189,9 @@ function handleSubmit() {
             songs.forEach(async (song) => {
                 const lyrics = await fetchLyrics(song);
                 my_data = my_data.concat(lyrics.filter(item => item.plainLyrics));
-
+                if (my_data.length ==0){
+                    flag_first_fetched = -2
+                }
 
             });
         });
@@ -253,6 +255,10 @@ function draw() {
         let thing = new Thing(centerX, centerY);
         thing.show();
     }
+    
+    if (flag_first_fetched == -2) {
+        text(" no lyrics found:( try again with another word", 50, 50, WIDTH_, 200);
+    }
 
     if (flag_first_fetched > -1) {
         //count time for the fetched song and each song line
@@ -292,10 +298,7 @@ function draw() {
             song_line += 1;
         }
 
-        if (my_data.length > 0)
-            text(accumulating_lyrics, 50, 50, WIDTH_, 200);
-        else
-            text(" no lyrics found:( try again with another word", 50, 50, WIDTH_, 200);
+        text(accumulating_lyrics, 50, 50, WIDTH_, 200);
 
         pop();
     }

@@ -7,8 +7,9 @@ let time = 0;
 var alpha = 100
 var song_line = 0;
 var searchTerm = "";
-
 var historical_data = [];
+
+// (-1) -> not fetched yet, (-2) -> no songs found / http error, (0<) -> songs found
 var flag_first_fetched = -1
 var rnd = 0;
 var rnd_data;
@@ -62,13 +63,22 @@ async function fetchSongs(query) {
                     const artist_name = value.result.primary_artist.name;
                     return { track_name, artist_name };
                 })
-
+            var is_empty_historical_data = Object.keys(historical_data).length === 0;
+            if (is_empty_historical_data) {
+                flag_first_fetched = -2;
+                console.log("No songs found.");
+                return [];
+            }
             return songs_to_search;
         } else {
+            flag_first_fetched = -2;
+
             console.log("No songs found.");
             return [];
         }
     } catch (error) {
+        flag_first_fetched = -2;
+
         console.log("Error: " + error.message);
         return [];
     }

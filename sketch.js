@@ -240,6 +240,8 @@ function centerTop(element, top_px) {
     element.style('position', 'absolute');
     element.style('top', top_px);
     element.style('margin', '0');
+    element.style('width', '100%');
+
 }
 
 async function setup() {
@@ -254,7 +256,6 @@ async function setup() {
     queryTitle.style('font-size', '80px')
     queryTitle.style('font-family', 'Gveret Levin')
     queryTitle.style('color', '#2d3748')
-    queryTitle.style('width', '100%');
 
     // Input & submit button
     queryInput = createInput();
@@ -266,7 +267,6 @@ async function setup() {
     queryInput.style('border-radius', '10px')
     queryInput.style('border', '2px solid #e2e8f0')
     queryInput.style('outline', 'none')
-    queryInput.style('width', '30%');
     centerTop(queryInput, '100px')
 
 
@@ -275,7 +275,6 @@ async function setup() {
     submit.style('font-size', '50px')
     submit.style('font-family', 'Gveret Levin')
     submit.style('height', '1.5em');
-    submit.style('width', '30%');
     submit.style('background', '#3182ce')
     submit.style('border', 'none')
     submit.style('padding', '12px 18px')

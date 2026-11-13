@@ -89,7 +89,7 @@ async function fetchLyrics(song) {
     try {
         const response = await fetch(`https://lrclib.net/api/search?q=${encodeURIComponent(query_song_name)}`);
 
-        if (!response.ok) throw new Error('Network response was not ok');
+        if (!response.ok) throw new Error('Network response error: '+ response);
 
         const data = await response.json();
 
@@ -249,7 +249,7 @@ function draw() {
     if (my_data.length > 0 && flag_first_fetched == -1) {
         flag_first_fetched = time;
 
-        // creating colorful interactive circle - not working yet:(
+        // creating colorful interactive circle - doesn't work yet:(
         let thing = new Thing(centerX, centerY);
         thing.show();
     }
@@ -292,7 +292,11 @@ function draw() {
             song_line += 1;
         }
 
-        text(accumulating_lyrics, 50, 50, WIDTH_, 200);
+        if (my_data.length > 0)
+            text(accumulating_lyrics, 50, 50, WIDTH_, 200);
+        else
+            text(" no lyrics found:( try again with another word", 50, 50, WIDTH_, 200);
+
         pop();
     }
 

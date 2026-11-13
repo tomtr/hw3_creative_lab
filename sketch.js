@@ -126,9 +126,11 @@ async function fetchLyrics(song) {
 // Filter out songs with curse words.. thanks Tupac
 function filterOutSongs(songsArray) {
   return songsArray.filter(song => {
+    const whitelist = ["hell", "damn"];
     const lyrics = song.plainLyrics || "";
     // check if cleaning the text changes it (meaning profanity was found)
-    const hasProfanity = profanityCleaner.clean(lyrics) !== lyrics;
+    const cleaned = profanityCleaner.clean(lyrics, { exceptions: whitelist });
+    const hasProfanity = cleaned !== lyrics;
     return !hasProfanity;
   });
 }

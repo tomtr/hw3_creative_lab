@@ -112,9 +112,9 @@ async function fetchLyrics(song) {
                 seen.add(item.name);
                 return !duplicate;
             });
-            
-           const final_data = filterOutSongs(uniqueData)
-           return final_data;
+
+            const final_data = filterOutSongs(uniqueData)
+            return final_data;
         } else {
             console.log("No lyrics found.");
             return [];
@@ -127,14 +127,14 @@ async function fetchLyrics(song) {
 
 // Filter out songs with curse words.. thanks Tupac
 function filterOutSongs(songsArray) {
-  return songsArray.filter(song => {
-    const whitelist = ["hell", "damn"];
-    const lyrics = song.plainLyrics || "";
-    // check if cleaning the text changes it (meaning profanity was found)
-    const cleaned = profanityCleaner.clean(lyrics, { exceptions: whitelist });
-    const hasProfanity = cleaned !== lyrics;
-    return !hasProfanity;
-  });
+    return songsArray.filter(song => {
+        const whitelist = ["hell", "damn"];
+        const lyrics = song.plainLyrics || "";
+        // check if cleaning the text changes it (meaning profanity was found)
+        const cleaned = profanityCleaner.clean(lyrics, { exceptions: whitelist });
+        const hasProfanity = cleaned !== lyrics;
+        return !hasProfanity;
+    });
 }
 
 
@@ -162,7 +162,7 @@ function extractLanguagesSeparately(text) {
 class Thing {
     constructor(centerX, centerY) {
         this.centerX = centerX;
-        this.centerY = centerY; 
+        this.centerY = centerY;
     }
     show() {
         hue = (time * 2) % 360;
@@ -272,7 +272,12 @@ async function setup() {
 function draw() {
     background(0, 0, 100);
     var seconds = 30
-
+    alpha = map(timeModulo, 0, 60 * seconds, 100, 0);
+    fill(0, 0, 0, alpha);
+    drawingContext.direction = 'ltr';
+    textFont(font);
+    textAlign(CENTER, TOP);
+    noStroke();
     // handle first successful fetch 
     if (my_data.length > 0 && flag_first_fetched == -1) {
         flag_first_fetched = time;
@@ -281,8 +286,8 @@ function draw() {
         thing = new Thing(centerX, centerY);
     }
 
-    if (thing!=''){
-     thing.show();
+    if (thing != '') {
+        thing.show();
     }
 
     if (flag_first_fetched == -2) {
@@ -308,7 +313,8 @@ function draw() {
             track_name = rnd_data.name;
             artist_name = rnd_data.artistName
             lyrics_arr = rand_lyrics.split("\n");
-            accumulating_lyrics = track_name+ ' - by '+artist_name+'\n\n';
+            textSize(70);
+            text(track_name + ' - by ' + artist_name, 50, 50, WIDTH_, HEIGHT_ - 100);
         }
 
         // handling adding more song lines 
@@ -316,17 +322,12 @@ function draw() {
             accumulating_lyrics += `${lyrics_arr[song_line]}\n`
             song_line += 1;
         }
-    // some text properties
-    alpha = map(timeModulo, 0, 60 * seconds, 100, 0);
-    // fill(360-hue, 40, 90, alpha);
-    fill(0, 0, 0, alpha);
-    textSize(50);
-    drawingContext.direction = 'ltr';
-    textFont(font);
-    textAlign(CENTER, TOP);
-    noStroke();
+        // some text properties
+        textSize(50);
+        // fill(360-hue, 40, 90, alpha);
 
-        text(accumulating_lyrics, 50, 50, WIDTH_, HEIGHT_-100);
+
+        text(accumulating_lyrics, 50, 150, WIDTH_, HEIGHT_ - 100);
 
         pop();
     }

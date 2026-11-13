@@ -335,7 +335,7 @@ function draw() {
         textSize(70);
         text(title, 50, 50, WIDTH_, HEIGHT_ - 100);
         textSize(50);
-        text(accumulating_lyrics, 50, 150, WIDTH_, HEIGHT_);
+        text(accumulating_lyrics, 50, 200, WIDTH_, HEIGHT_);
 
         if (thing != '') {
             thing.show();

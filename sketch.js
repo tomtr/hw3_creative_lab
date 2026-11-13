@@ -254,15 +254,6 @@ async function setup() {
 
 function draw() {
 
-    // some text properties
-    alpha = map(timeModulo, 0, 60 * seconds, 100, 0);
-    // fill(360-hue, 40, 90, alpha);
-    fill(0, 0, 0, alpha);
-    textSize(50);
-    drawingContext.direction = 'ltr';
-    textFont(font);
-    textAlign(CENTER, TOP);
-    noStroke();
 
     background(0, 0, 100);
     var seconds = 30
@@ -307,6 +298,15 @@ function draw() {
             accumulating_lyrics += `${lyrics_arr[song_line]}\n`
             song_line += 1;
         }
+    // some text properties
+    alpha = map(timeModulo, 0, 60 * seconds, 100, 0);
+    // fill(360-hue, 40, 90, alpha);
+    fill(0, 0, 0, alpha);
+    textSize(50);
+    drawingContext.direction = 'ltr';
+    textFont(font);
+    textAlign(CENTER, TOP);
+    noStroke();
 
         text(accumulating_lyrics, 50, 50, WIDTH_, 200);
 

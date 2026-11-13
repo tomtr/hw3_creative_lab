@@ -269,7 +269,6 @@ async function setup() {
 
 function draw() {
 
-
     background(0, 0, 100);
     var seconds = 30
 
@@ -289,7 +288,7 @@ function draw() {
     if (flag_first_fetched > -1) {
         //count time for the fetched song and each song line
         var timeModulo = (time - flag_first_fetched) % (60 * seconds);
-        var timeModuloSongLine = (time - flag_first_fetched) % (60 * (seconds / 5));
+        var timeModuloSongLine = (time - flag_first_fetched) % (60 * (seconds / 10));
 
         // initializing a new song
         if (timeModulo == 0) {

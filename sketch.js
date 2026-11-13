@@ -111,9 +111,9 @@ async function fetchLyrics(song) {
                 seen.add(item.name);
                 return !duplicate;
             });
-            const final_data = filterOutSongs(uniqueData)
-
-            return final_data;
+           // const final_data = filterOutSongs(uniqueData)
+           // return final_data;
+           return uniqueData;
         } else {
             console.log("No lyrics found.");
             return [];
@@ -164,7 +164,7 @@ function extractLanguagesSeparately(text) {
 class Thing {
     constructor(centerX, centerY) {
         this.centerX = centerX;
-        this.centerY = centerY;
+        this.centerY = centerY; 
     }
     show() {
         hue = (time * 2) % 360;

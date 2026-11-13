@@ -9,7 +9,9 @@ var song_line = 0;
 var searchTerm = "";
 var historical_data = [];
 let thing = ''
-var title=''
+var title = ''
+var is_hebrew = 'false';
+
 
 // (-1) -> not fetched yet, (-2) -> no songs found / http error, (0<) -> songs found
 var flag_first_fetched = -1
@@ -89,9 +91,10 @@ async function fetchSongs(query) {
 
 // Fetch lyrics for the songs
 async function fetchLyrics(song) {
+    var final_data = '';
     var query_song_name = song.track_name + " " + song.artist_name;
     var query_song_name_heb = extractLanguagesSeparately(query_song_name).hebrew
-    var is_hebrew = (query_song_name_heb.length > 0);
+    is_hebrew = (query_song_name_heb.length > 0);
     if (is_hebrew) {
         query_song_name = query_song_name_heb.join(" ");
         text_dir = 'rtl'
@@ -113,8 +116,12 @@ async function fetchLyrics(song) {
                 seen.add(item.name);
                 return !duplicate;
             });
-
-            const final_data = filterOutSongs(uniqueData)
+            if (!is_hebrew) {
+                final_data = filterOutSongs(uniqueData)
+            }
+            else {
+                final_data = uniqueData
+            }
             return final_data;
         } else {
             console.log("No lyrics found.");
@@ -246,12 +253,12 @@ async function setup() {
     centerTop(queryTitle, '10px')
 
     queryTitle.style('font-size', '90px')
-    queryTitle.style('font-family', 'IM Fell DW Pica')
+    queryTitle.style('font-family', 'Gveret Levin')
 
     // Input & submit button
     queryInput = createInput();
     queryInput.style('font-size', '80px')
-    queryInput.style('font-family', 'IM Fell DW Pica')
+    queryInput.style('font-family', 'Gveret Levin')
     queryInput.style('height', '1.5em');
     queryInput.style('text-align', 'center');
 
@@ -261,7 +268,7 @@ async function setup() {
     submit = createButton('Submit');
     submit.position(0, 250);
     submit.style('font-size', '80px')
-    submit.style('font-family', 'IM Fell DW Pica')
+    submit.style('font-family', 'Gveret Levin')
     submit.style('height', '1.5em');
     centerTop(submit, '250px')
     queryInput.changed(handleSubmit);
@@ -330,7 +337,7 @@ function draw() {
         textSize(70);
         text(title, 50, 50, WIDTH_, HEIGHT_ - 100);
         textSize(50);
-        text(accumulating_lyrics, 50, 100, WIDTH_, HEIGHT_ - 100);
+        text(accumulating_lyrics, 50, 150, WIDTH_, HEIGHT_ - 100);
 
     }
 

@@ -236,7 +236,6 @@ function handleSubmit() {
 
 // Center things... so complicated
 function centerTop(element, top_px) {
-    element.style('width', '100%');
     element.style('text-align', 'center');
     element.style('position', 'absolute');
     element.style('top', top_px);
@@ -254,7 +253,8 @@ async function setup() {
 
     queryTitle.style('font-size', '80px')
     queryTitle.style('font-family', 'Gveret Levin')
-    queryTitle.style('color','#2d3748')
+    queryTitle.style('color', '#2d3748')
+    queryTitle.style('width', '100%');
 
     // Input & submit button
     queryInput = createInput();
@@ -262,10 +262,11 @@ async function setup() {
     queryInput.style('font-family', 'Gveret Levin')
     queryInput.style('height', '1.5em');
     queryInput.style('text-align', 'center');
-    queryInput.style('padding','12px 18px')
-    queryInput.style('border-radius','10px')
-    queryInput.style('border','2px solid #e2e8f0')
-    queryInput.style('outline','none')
+    queryInput.style('padding', '12px 18px')
+    queryInput.style('border-radius', '10px')
+    queryInput.style('border', '2px solid #e2e8f0')
+    queryInput.style('outline', 'none')
+    queryInput.style('width', '30%');
     centerTop(queryInput, '100px')
 
 
@@ -274,14 +275,21 @@ async function setup() {
     submit.style('font-size', '50px')
     submit.style('font-family', 'Gveret Levin')
     submit.style('height', '1.5em');
-    submit.style('background','#3182ce')
+    submit.style('width', '30%');
+    submit.style('background', '#3182ce')
     submit.style('border', 'none')
-    submit.style('padding','12px 18px')
-    submit.style('border-radius','10px')
-    submit.style('border','2px solid #e2e8f0')
-    submit.style('outline','none')
-    submit.style('color','white')
+    submit.style('padding', '12px 18px')
+    submit.style('border-radius', '10px')
+    submit.style('border', '2px solid #e2e8f0')
+    submit.style('outline', 'none')
+    submit.style('color', 'white')
+    submit.elt.addEventListener('mouseover', () => {
+        submit.style('background', '#2b6cb0');
+    });
 
+    submit.elt.addEventListener('mouseout', () => {
+        submit.style('background', '#3182ce');
+    });
 
     centerTop(submit, '250px')
     queryInput.changed(handleSubmit);

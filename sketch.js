@@ -317,7 +317,9 @@ function draw() {
             artist_name = rnd_data.artistName
             lyrics_arr = rand_lyrics.split("\n");
             //accumulating_lyrics = +'\n\n';
-            title = track_name + ' - by ' + artist_name;
+            if (!is_hebrew)
+                title = track_name + ' - by ' + artist_name;
+            else title = track_name + ' - מאת ' + artist_name;
 
         }
 

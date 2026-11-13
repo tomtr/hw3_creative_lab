@@ -63,6 +63,7 @@ async function fetchSongs(query) {
                     const artist_name = value.result.primary_artist.name;
                     return { track_name, artist_name };
                 })
+
             var is_empty_historical_data = Object.keys(historical_data).length === 0;
             if (is_empty_historical_data) {
                 flag_first_fetched = -2;
@@ -110,8 +111,9 @@ async function fetchLyrics(song) {
                 seen.add(item.name);
                 return !duplicate;
             });
+            const final_data = filterOutSongs(uniqueData)
 
-            return uniqueData;
+            return final_data;
         } else {
             console.log("No lyrics found.");
             return [];
@@ -121,6 +123,23 @@ async function fetchLyrics(song) {
         return [];
     }
 }
+
+// Filter out songs with curse words.. thanks Tupac
+    function filterOutSongs(songsObj) {
+      const cleanPlaylist = {};
+
+      for (const [song, lyrics] of Object.entries(songsObj)) {
+        // Check if cleaning the text changes it
+        const hasProfanity = profanityCleaner.clean(lyrics) !== lyrics;
+        if (!hasProfanity) {
+          cleanPlaylist[song] = lyrics;
+        }
+      }
+
+      return cleanPlaylist;
+    }
+
+
 // Thanks to gemini for the following function!
 function extractLanguagesSeparately(text) {
     const regex = /([\u0590-\u05FF]+|[a-zA-Z]+)/g;

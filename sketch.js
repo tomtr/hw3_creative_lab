@@ -28,7 +28,7 @@ let centerX = WIDTH_ / 2,
     centerY = HEIGHT_ / 10;
 
 let angle = 0;
-let diameter = 100;
+let diameter = 400;
 let radius = diameter / 2;
 let hue = 0;
 let movement_rad = 50;
@@ -285,7 +285,7 @@ function draw() {
     if (my_data.length > 0 && flag_first_fetched == -1) {
         flag_first_fetched = time;
 
-        // creating colorful interactive circle - doesn't work yet:(
+        // creating colorful interactive circle
         thing = new Thing(centerX, centerY);
     }
 
@@ -326,8 +326,8 @@ function draw() {
         }
         // some text properties
         alpha = map(timeModulo, 0, 60 * seconds, 100, 0);
-        fill(360-hue, 40, 90, alpha);
-        //fill(0, 0, 0, alpha);
+        //fill(360-hue, 40, 90, alpha);
+        fill(0, 0, 0, alpha);
         drawingContext.direction = 'ltr';
         textFont(font);
         textAlign(CENTER, TOP);

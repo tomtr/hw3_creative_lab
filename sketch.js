@@ -244,30 +244,36 @@ function centerTop(element, top_px) {
 }
 
 async function setup() {
-createCanvas(windowWidth, windowHeight);
-    background(240, 10, 95);
+    createCanvas(WIDTH_, HEIGHT_);
+    colorMode(HSB, 360, 100, 100, 100);
+    background(0, 0, 100);
 
-    createElement('style', `
-        body { font-family: 'Gveret Levin', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background: white; padding: 40px 50px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); text-align: center; display: flex; flex-direction: column; gap: 20px; width: 400px; }
-        h1 { font-size: 38px; margin: 0; color: #2d3748; }
-        input, button { font-family: 'Gveret Levin', sans-serif; font-size: 28px; padding: 12px 18px; border-radius: 10px; border: 2px solid #e2e8f0; outline: none; }
-        input:focus { border-color: #3182ce; box-shadow: 0 0 0 3px rgba(49,130,206,0.15); }
-        button { background: #3182ce; color: white; border: none; cursor: pointer; transition: background 0.2s; }
-        button:hover { background: #2b6cb0; }
-    `);
+    // Query for song input
+    queryTitle = createP("Pick a word - בחרו מילה")
+    centerTop(queryTitle, '10px')
 
-    let card = createDiv().addClass('card');
-    
-    createElement('h1', 'Pick a word - בחרו מילה').parent(card);
+    queryTitle.style('font-size', '80px')
+    queryTitle.style('font-family', 'Gveret Levin')
 
-    queryInput = createInput().attribute('placeholder', 'Type here...').parent(card);
+    // Input & submit button
+    queryInput = createInput();
+    queryInput.style('font-size', '50px')
+    queryInput.style('font-family', 'Gveret Levin')
+    queryInput.style('height', '1.5em');
     queryInput.style('text-align', 'center');
 
-    submit = createButton('Submit').parent(card);
+    centerTop(queryInput, '100px')
 
+
+    submit = createButton('Submit');
+    submit.position(0, 250);
+    submit.style('font-size', '50px')
+    submit.style('font-family', 'Gveret Levin')
+    submit.style('height', '1.5em');
+    centerTop(submit, '250px')
     queryInput.changed(handleSubmit);
     submit.mousePressed(handleSubmit);
+
 
 }
 

@@ -16,7 +16,7 @@ var rnd_data;
 var track_name;
 var text_dir = 'ltr';
 const WIDTH_ = 1300;
-const HEIGHT_ = 1300;
+const HEIGHT_ = 700;
 
 let x = 200,
     y = 200;
@@ -321,7 +321,7 @@ function draw() {
     textAlign(CENTER, TOP);
     noStroke();
 
-        text(accumulating_lyrics, 50, 50, WIDTH_, 200);
+        text(accumulating_lyrics, 50, 50, WIDTH_, HEIGHT_-100);
 
         pop();
     }

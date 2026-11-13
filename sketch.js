@@ -16,7 +16,7 @@ var rnd_data;
 var track_name;
 var text_dir = 'ltr';
 const WIDTH_ = 1300;
-const HEIGHT_ = 700;
+const HEIGHT_ = 1300;
 
 let x = 200,
     y = 200;
@@ -293,8 +293,6 @@ function draw() {
         // initializing a new song
         if (timeModulo == 0) {
             song_line = 0;
-            accumulating_lyrics = '';
-
             //random song from the fetched list, not the same as the one before
             var rnd_curr = Math.floor(Math.random() * my_data.length)
             while (my_data.length > 1 && rnd == rnd_curr) {
@@ -305,6 +303,7 @@ function draw() {
             var rand_lyrics = rnd_data.plainLyrics;
             track_name = rnd_data.name;
             lyrics_arr = rand_lyrics.split("\n");
+            accumulating_lyrics = track_name+'\n\n';
         }
 
         // handling adding more song lines 

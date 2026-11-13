@@ -280,18 +280,17 @@ async function setup() {
 function draw() {
     background(0, 0, 100);
     var seconds = 30
+    // creating colorful interactive circle - doesn't work yet:(
+    thing = new Thing(centerX, centerY);
+    thing.show();
 
     // handle first successful fetch 
     if (my_data.length > 0 && flag_first_fetched == -1) {
         flag_first_fetched = time;
-
-        // creating colorful interactive circle - doesn't work yet:(
-        thing = new Thing(centerX, centerY);
     }
 
     if (thing != '') {
         console.log("showing thing")
-        thing.show();
     }
 
     if (flag_first_fetched == -2) {

@@ -8,6 +8,7 @@ var alpha = 100
 var song_line = 0;
 var searchTerm = "";
 var historical_data = [];
+let thing = ''
 
 // (-1) -> not fetched yet, (-2) -> no songs found / http error, (0<) -> songs found
 var flag_first_fetched = -1
@@ -268,7 +269,6 @@ async function setup() {
 }
 
 function draw() {
-
     background(0, 0, 100);
     var seconds = 30
 
@@ -277,8 +277,11 @@ function draw() {
         flag_first_fetched = time;
 
         // creating colorful interactive circle - doesn't work yet:(
-        let thing = new Thing(centerX, centerY);
-        thing.show();
+        thing = new Thing(centerX, centerY);
+    }
+
+    if (thing!=''){
+     thing.show();
     }
 
     if (flag_first_fetched == -2) {

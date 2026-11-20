@@ -116,12 +116,14 @@ async function fetchLyrics(song) {
                 seen.add(item.name);
                 return !duplicate;
             });
-            if (!is_hebrew) {
+            /*if (!is_hebrew) {
                 final_data = filterOutSongs(uniqueData)
+
             }
             else {
                 final_data = uniqueData
-            }
+            }*/
+            final_data = uniqueData
             return final_data;
         } else {
             console.log("No lyrics found.");
@@ -220,7 +222,20 @@ function handleSubmit() {
         submit.remove()
         queryTitle.remove()
         queryTitle = '';
-        fetchSongs(query).then((songs) => {
+        fetchLyrics(query).then((songs) => {
+            songs.forEach(async (song) => {
+                var metadata_searchterm = song.trackName+" "+song.artistName
+                var lyrics = song.filter(item => item.plainLyrics)
+                const metadata = await fetchSongs(metadata_searchterm) 
+                if (metadata.length == 0) {
+                    flag_first_fetched = -2
+                }
+                my_data = my_data.concat(lyrics);
+
+            })
+        });
+
+        /*fetchSongs(query).then((songs) => {
             songs.forEach(async (song) => {
                 const lyrics = await fetchLyrics(song);
                 my_data = my_data.concat(lyrics.filter(item => item.plainLyrics));
@@ -229,7 +244,7 @@ function handleSubmit() {
                 }
 
             });
-        });
+        });*/
 
     }
 }

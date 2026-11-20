@@ -38,7 +38,7 @@ let direction = 1;
 
 let queryInput, submit;
 const YEAR = 2000;
-var lyrics=''
+var lyrics = ''
 
 // Fetch songs according to user query
 async function fetchSongs(query) {
@@ -129,7 +129,7 @@ async function fetchLyrics(song) {
             data = await searchLrclib(song.track_name);
         }
 
-        if (true) {
+        if (data.length > 0) {
             const seen = new Set();
             const uniqueData = data.filter(item => {
                 const duplicate = seen.has(item.name);
@@ -255,15 +255,16 @@ function handleSubmit() {
             })
         });*/
 
-        fetchSongs(query).then((songs) => {
-            songs.forEach(async (song) => {
-                lyrics = await fetchLyrics(song);
-                my_data = my_data.concat(lyrics.filter(item => item.plainLyrics));
-                if (my_data.length == 0) {
-                    flag_first_fetched = -2
-                }
-
-            });
+        fetchSongs(query).then(async (songs) => {
+            for (const song of songs) {
+                const lyricsList = await fetchLyrics(song);
+                const valid = lyricsList.filter(item => item.plainLyrics);
+                my_data = my_data.concat(valid);
+                await new Promise(r => setTimeout(r, 350));
+            }
+            if (my_data.length === 0) {
+                flag_first_fetched = -2;
+            }
         });
 
     }

@@ -97,10 +97,10 @@ async function fetchLyrics(song) {
     //var query_song_name=song;
     var query_song_name_heb = extractLanguagesSeparately(query_song_name).hebrew
     is_hebrew = (query_song_name_heb.length > 0);
-    if (is_hebrew) {
+    /*if (is_hebrew) {
         query_song_name = query_song_name_heb.join(" ");
         text_dir = 'rtl'
-    }
+    }*/
 
     console.log(`Fetching lyrics for: ${query_song_name}`);
 

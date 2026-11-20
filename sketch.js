@@ -97,10 +97,10 @@ async function fetchLyrics(song) {
     //var query_song_name=song;
     var query_song_name_heb = extractLanguagesSeparately(query_song_name).hebrew
     is_hebrew = (query_song_name_heb.length > 0);
-    /*if (is_hebrew) {
+    if (is_hebrew) {
         query_song_name = query_song_name_heb.join(" ");
         text_dir = 'rtl'
-    }*/
+    }
 
     console.log(`Fetching lyrics for: ${query_song_name}`);
 
@@ -118,7 +118,7 @@ async function fetchLyrics(song) {
         };
         let data = await searchLrclib(query_song_name);
 
-        // if returned OK but data is empty, retry
+       /* // if returned OK but data is empty, retry
         if (data.length === 0) {
             await new Promise(r => setTimeout(r, 400));
             data = await searchLrclib(query_song_name);
@@ -127,7 +127,7 @@ async function fetchLyrics(song) {
         // if still empty, try searching for song name only
         if (data.length === 0 && song.track_name) {
             data = await searchLrclib(song.track_name);
-        }
+        }*/
 
         if (data.length > 0) {
             const seen = new Set();
@@ -260,7 +260,7 @@ function handleSubmit() {
                 const lyricsList = await fetchLyrics(song);
                 const valid = lyricsList.filter(item => item.plainLyrics);
                 my_data = my_data.concat(valid);
-                await new Promise(r => setTimeout(r, 350));
+                //await new Promise(r => setTimeout(r, 350));
             }
             if (my_data.length === 0) {
                 flag_first_fetched = -2;

@@ -91,8 +91,9 @@ async function fetchSongs(query) {
 
 // Fetch lyrics for the songs
 async function fetchLyrics(song) {
-    var final_data = '';
-    var query_song_name = song.track_name + " " + song.artist_name;
+    //var final_data = '';
+    //var query_song_name = song.track_name + " " + song.artist_name;
+    var query_song_name=song;
     var query_song_name_heb = extractLanguagesSeparately(query_song_name).hebrew
     is_hebrew = (query_song_name_heb.length > 0);
     if (is_hebrew) {

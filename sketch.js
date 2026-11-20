@@ -91,9 +91,9 @@ async function fetchSongs(query) {
 
 // Fetch lyrics for the songs
 async function fetchLyrics(song) {
-    //var final_data = '';
-    //var query_song_name = song.track_name + " " + song.artist_name;
-    var query_song_name=song;
+    var final_data = '';
+    var query_song_name = song.track_name + " " + song.artist_name;
+    //var query_song_name=song;
     var query_song_name_heb = extractLanguagesSeparately(query_song_name).hebrew
     is_hebrew = (query_song_name_heb.length > 0);
     if (is_hebrew) {
@@ -223,7 +223,7 @@ function handleSubmit() {
         submit.remove()
         queryTitle.remove()
         queryTitle = '';
-        fetchLyrics(query).then((songs) => {
+        /*fetchLyrics(query).then((songs) => {
             songs.forEach(async (song) => {
                 var metadata_searchterm = song.trackName+" "+song.artistName
                 var lyrics = song.filter(item => item.plainLyrics)
@@ -234,9 +234,9 @@ function handleSubmit() {
                 my_data = my_data.concat(lyrics);
 
             })
-        });
+        });*/
 
-        /*fetchSongs(query).then((songs) => {
+        fetchSongs(query).then((songs) => {
             songs.forEach(async (song) => {
                 const lyrics = await fetchLyrics(song);
                 my_data = my_data.concat(lyrics.filter(item => item.plainLyrics));
@@ -245,7 +245,7 @@ function handleSubmit() {
                 }
 
             });
-        });*/
+        });
 
     }
 }

@@ -38,6 +38,7 @@ let direction = 1;
 
 let queryInput, submit;
 const YEAR = 2000;
+var lyrics=''
 
 // Fetch songs according to user query
 async function fetchSongs(query) {
@@ -116,7 +117,7 @@ async function fetchLyrics(song) {
             return Array.isArray(data) ? data : [];
         };
         let data = await searchLrclib(query_song_name);
-        
+
         // if returned OK but data is empty, retry
         if (data.length === 0) {
             await new Promise(r => setTimeout(r, 400));
@@ -256,7 +257,7 @@ function handleSubmit() {
 
         fetchSongs(query).then((songs) => {
             songs.forEach(async (song) => {
-                const lyrics = await fetchLyrics(song);
+                lyrics = await fetchLyrics(song);
                 my_data = my_data.concat(lyrics.filter(item => item.plainLyrics));
                 if (my_data.length == 0) {
                     flag_first_fetched = -2

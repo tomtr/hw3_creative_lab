@@ -99,6 +99,7 @@ async function fetchLyrics(song) {
     is_hebrew = (query_song_name_heb.length > 0);
     if (is_hebrew) {
         query_song_name = query_song_name_heb.join(" ");
+        console.log("hebrew song name: "+query_song_name)
         text_dir = 'rtl'
     }
 
@@ -106,7 +107,7 @@ async function fetchLyrics(song) {
 
     try {
         const searchLrclib = async (q) => {
-            const response = await fetch(`https://lrclib.net/api/search?q=${(query_song_name)}`);
+            const response = await fetch(`https://lrclib.net/api/search?q=${encodeURIComponent(query_song_name)}`);
 
             console.log("Status:", response.status, "for:", query_song_name);
             if (!response.ok) {

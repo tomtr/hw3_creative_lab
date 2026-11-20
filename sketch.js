@@ -106,9 +106,16 @@ async function fetchLyrics(song) {
     try {
         const response = await fetch(`https://lrclib.net/api/search?q=${encodeURIComponent(query_song_name)}`);
 
+        console.log("Status:", response.status, "for:", query_song_name);
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status} (${response.statusText})`);
+        }
+        const data = await response.json();
+        console.log("Raw data count:", Array.isArray(data) ? data.length : data, "for:", query_song_name);
+
+
         if (!response.ok) throw new Error('Network response error: ' + response);
 
-        const data = await response.json();
 
         if (data.length > 0) {
             const seen = new Set();

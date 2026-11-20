@@ -116,6 +116,16 @@ async function fetchLyrics(song) {
 
         if (!response.ok) throw new Error('Network response error: ' + response);
 
+        // if returned OK but data is empty, retry
+        if (data.length === 0) {
+            await new Promise(r => setTimeout(r, 400));
+            data = await searchLrclib(query_song_name);
+        }
+
+        // if still empty, try searching for song name only
+        if (data.length === 0 && song.track_name) {
+            data = await searchLrclib(song.track_name);
+        }
 
         if (data.length > 0) {
             const seen = new Set();

@@ -104,18 +104,19 @@ async function fetchLyrics(song) {
     console.log(`Fetching lyrics for: ${query_song_name}`);
 
     try {
-        const response = await fetch(`https://lrclib.net/api/search?q=${encodeURIComponent(query_song_name)}`);
+        const searchLrclib = async (q) => {
+            const response = await fetch(`https://lrclib.net/api/search?q=${encodeURIComponent(query_song_name)}`);
 
-        console.log("Status:", response.status, "for:", query_song_name);
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status} (${response.statusText})`);
-        }
-        const data = await response.json();
-        console.log("Raw data count:", Array.isArray(data) ? data.length : data, "for:", query_song_name);
-
-
-        if (!response.ok) throw new Error('Network response error: ' + response);
-
+            console.log("Status:", response.status, "for:", query_song_name);
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status} (${response.statusText})`);
+            }
+            const data = await response.json();
+            console.log("Raw data count:", Array.isArray(data) ? data.length : data, "for:", query_song_name);
+            return Array.isArray(data) ? data : [];
+        };
+        let data = await searchLrclib(query_song_name);
+        
         // if returned OK but data is empty, retry
         if (data.length === 0) {
             await new Promise(r => setTimeout(r, 400));

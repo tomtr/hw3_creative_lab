@@ -99,7 +99,6 @@ async function fetchLyrics(song) {
     is_hebrew = (query_song_name_heb.length > 0);
     if (is_hebrew) {
         query_song_name = query_song_name_heb.join(" ");
-        console.log("hebrew song name: "+query_song_name)
         text_dir = 'rtl'
     }
 
@@ -130,7 +129,7 @@ async function fetchLyrics(song) {
             data = await searchLrclib(song.track_name);
         }
 
-        if (data.length > 0) {
+        if (true) {
             const seen = new Set();
             const uniqueData = data.filter(item => {
                 const duplicate = seen.has(item.name);

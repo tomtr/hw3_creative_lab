@@ -402,13 +402,13 @@ function draw() {
             textSize(70);
             text(title, 50, 50, WIDTH_, HEIGHT_ - 100);
             textSize(50);
-            text(accumulating_lyrics, WIDTH_ - 50, 100);
+            text(accumulating_lyrics, 50, 200, WIDTH_, HEIGHT_);
         } else {
             textAlign(LEFT, TOP);
             textSize(70);
             text(title, 50, 50, WIDTH_, HEIGHT_ - 100);
             textSize(50);
-            text(accumulating_lyrics, 50, 100);
+            text(accumulating_lyrics, 50, 200, WIDTH_, HEIGHT_);
         }
         pop();
         //text(accumulating_lyrics, 50, 200, WIDTH_, HEIGHT_);

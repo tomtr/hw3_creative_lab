@@ -393,30 +393,26 @@ function draw() {
         textFont(font);
         textAlign(CENTER, TOP);
         noStroke();
-        
+
         //text(title, 50, 50, WIDTH_, HEIGHT_ - 100);
-        
+
 
         push();
+        let padding = WIDTH_ - 100;
         if (text_dir === 'rtl') {
             textAlign(RIGHT, TOP);
-            textSize(70);
-            text(title, 50, 50, WIDTH_-50, HEIGHT_ - 100);
-            textSize(50);
-            let finish_title = 50 + textAscent() + textDescent()
-            text(accumulating_lyrics, WIDTH_ - 50, 200, WIDTH_, HEIGHT_);
-
         } else {
             textAlign(LEFT, TOP);
-            textSize(70);
-            text(title, 50, 50, WIDTH_, HEIGHT_ - 100);
-            textSize(50);
-            let finish_title = 50 + textAscent() + textDescent()
-            text(accumulating_lyrics, 50, finish_title+50, WIDTH_, HEIGHT_);
         }
-        pop();
-        //text(accumulating_lyrics, 50, 200, WIDTH_, HEIGHT_);
+        textSize(70);
+        text(title, 50, 50, boxW, HEIGHT_ - 100);
 
+        let titleLines = Math.max(1, Math.ceil(textWidth(title) / boxW));
+        let finish_title = 50 + (titleLines * textLeading());
+
+        textSize(50);
+        text(accumulating_lyrics, 50, finish_title + 30, boxW, HEIGHT_ - finish_title - 50);
+        pop();
         if (thing != '') {
             thing.show();
         }

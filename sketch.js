@@ -39,6 +39,7 @@ let direction = 1;
 let queryInput, submit;
 const YEAR = 2010;
 var lyrics = ''
+const bgAudio = new Audio();
 
 function playItunesPreview(songName) {
   const callbackName = 'itunesCb_' + Date.now();

@@ -401,7 +401,7 @@ function draw() {
         if (text_dir === 'rtl') {
             textAlign(RIGHT, TOP);
             textSize(70);
-            text(title, 50, 50, WIDTH_, HEIGHT_ - 100);
+            text(title, 50, 50, WIDTH_-50, HEIGHT_ - 100);
             textSize(50);
             let finish_title = 50 + textAscent() + textDescent()
             text(accumulating_lyrics, WIDTH_ - 50, finish_title+50, WIDTH_, HEIGHT_);

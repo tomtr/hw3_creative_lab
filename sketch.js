@@ -37,7 +37,7 @@ let max_rad = 200;
 let direction = 1;
 
 let queryInput, submit;
-const YEAR = 2000;
+const YEAR = 2005;
 var lyrics = ''
 
 // Fetch songs according to user query

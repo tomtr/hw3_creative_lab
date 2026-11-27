@@ -404,7 +404,7 @@ function draw() {
             text(title, 50, 50, WIDTH_, HEIGHT_ - 100);
             textSize(50);
             let finish_title = 50 + textAscent() + textDescent()
-            text(accumulating_lyrics, 50, finish_title+50, WIDTH_, HEIGHT_);
+            text(accumulating_lyrics, WIDTH_ - 50, finish_title+50, WIDTH_, HEIGHT_);
         } else {
             textAlign(LEFT, TOP);
             textSize(70);

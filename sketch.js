@@ -389,29 +389,27 @@ function draw() {
         alpha = map(timeModulo, 0, 60 * seconds, 100, 0);
         //fill(360-hue, 40, 90, alpha);
         fill(0, 0, 0, alpha);
-        drawingContext.direction = 'ltr';
         textFont(font);
-        textAlign(CENTER, TOP);
         noStroke();
-
-        //text(title, 50, 50, WIDTH_, HEIGHT_ - 100);
-
 
         push();
         let padding = WIDTH_ - 100;
+        drawingContext.direction = text_dir;
+        textAlign(text_dir === 'rtl' ? RIGHT : LEFT, TOP);
+
         if (text_dir === 'rtl') {
             textAlign(RIGHT, TOP);
         } else {
             textAlign(LEFT, TOP);
         }
         textSize(70);
-        text(title, 50, 50, boxW, HEIGHT_ - 100);
+        text(title, 50, 50, padding, HEIGHT_ - 100);
 
-        let titleLines = Math.max(1, Math.ceil(textWidth(title) / boxW));
+        let titleLines = Math.max(1, Math.ceil(textWidth(title) / padding));
         let finish_title = 50 + (titleLines * textLeading());
 
         textSize(50);
-        text(accumulating_lyrics, 50, finish_title + 30, boxW, HEIGHT_ - finish_title - 50);
+        text(accumulating_lyrics, 50, finish_title + 30, padding, HEIGHT_ - finish_title - 50);
         pop();
         if (thing != '') {
             thing.show();

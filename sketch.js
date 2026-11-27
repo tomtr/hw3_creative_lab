@@ -40,24 +40,7 @@ let queryInput, submit;
 const YEAR = 2010;
 var lyrics = ''
 const bgAudio = new Audio();
-
-function playItunesPreview(songName) {
-  const callbackName = 'itunesCb_' + Date.now();
-  window[callbackName] = function (data) {
-    delete window[callbackName];
-    script.remove();
-
-    if (data.results && data.results.length > 0) {
-      bgAudio.src = data.results[0].previewUrl;
-      bgAudio.play();
-    }
-  };
-
-  const script = document.createElement('script');
-  script.src = `https://itunes.apple.com/search?term=${encodeURIComponent(songName)}&media=music&limit=1&callback=${callbackName}`;
-  document.body.appendChild(script);
-}
-
+bgAudio.loop = true;
 // Fetch songs according to user query
 async function fetchSongs(query) {
     let fetch_URL = `/api/search-songs?q=${encodeURIComponent(query)}`;
@@ -438,4 +421,21 @@ function draw() {
     }
 
     time += 1;
+}
+//Thanks gemini for this function!
+function playItunesPreview(songName) {
+  const callbackName = 'itunesCb_' + Date.now();
+  window[callbackName] = function (data) {
+    delete window[callbackName];
+    script.remove();
+
+    if (data.results && data.results.length > 0) {
+      bgAudio.src = data.results[0].previewUrl;
+      bgAudio.play();
+    }
+  };
+
+  const script = document.createElement('script');
+  script.src = `https://itunes.apple.com/search?term=${encodeURIComponent(songName)}&media=music&limit=1&callback=${callbackName}`;
+  document.body.appendChild(script);
 }

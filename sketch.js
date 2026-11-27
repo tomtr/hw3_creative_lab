@@ -13,7 +13,7 @@ var title = ''
 var is_hebrew = 'false';
 
 
-// (-1) -> not fetched yet, (-2) -> no songs found / http error, (0<) -> songs found
+// (-1) -> not fetched yet, (-2) -> no songs found / http error, (0>) -> songs found
 var flag_first_fetched = -1
 var rnd = 0;
 var rnd_data;
@@ -100,6 +100,8 @@ async function fetchLyrics(song) {
     if (is_hebrew) {
         query_song_name = query_song_name_heb.join(" ");
         text_dir = 'rtl'
+    } else {
+        text_dir = 'ltr';
     }
 
     console.log(`Fetching lyrics for: ${query_song_name}`);
@@ -118,16 +120,16 @@ async function fetchLyrics(song) {
         };
         let data = await searchLrclib(query_song_name);
 
-       /* // if returned OK but data is empty, retry
-        if (data.length === 0) {
-            await new Promise(r => setTimeout(r, 400));
-            data = await searchLrclib(query_song_name);
-        }
-
-        // if still empty, try searching for song name only
-        if (data.length === 0 && song.track_name) {
-            data = await searchLrclib(song.track_name);
-        }*/
+        /* // if returned OK but data is empty, retry
+         if (data.length === 0) {
+             await new Promise(r => setTimeout(r, 400));
+             data = await searchLrclib(query_song_name);
+         }
+ 
+         // if still empty, try searching for song name only
+         if (data.length === 0 && song.track_name) {
+             data = await searchLrclib(song.track_name);
+         }*/
 
         if (data.length > 0) {
             const seen = new Set();
@@ -136,6 +138,7 @@ async function fetchLyrics(song) {
                 seen.add(item.name);
                 return !duplicate;
             });
+            // left it out for now, doesn't work properly
             /*if (!is_hebrew) {
                 final_data = filterOutSongs(uniqueData)
 
@@ -242,6 +245,7 @@ function handleSubmit() {
         submit.remove()
         queryTitle.remove()
         queryTitle = '';
+
         /*fetchLyrics(query).then((songs) => {
             songs.forEach(async (song) => {
                 var metadata_searchterm = song.trackName+" "+song.artistName
@@ -391,7 +395,17 @@ function draw() {
         textSize(70);
         text(title, 50, 50, WIDTH_, HEIGHT_ - 100);
         textSize(50);
-        text(accumulating_lyrics, 50, 200, WIDTH_, HEIGHT_);
+        
+        push();
+        if (text_dir === 'rtl') {
+            textAlign(RIGHT, TOP);
+            text(accumulating_lyrics, WIDTH_ - 50, 100);
+        } else {
+            textAlign(LEFT, TOP);
+            text(accumulating_lyrics, 50, 100);
+        }
+        pop();
+        //text(accumulating_lyrics, 50, 200, WIDTH_, HEIGHT_);
 
         if (thing != '') {
             thing.show();

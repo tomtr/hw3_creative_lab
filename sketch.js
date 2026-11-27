@@ -285,7 +285,8 @@ function centerTop(element, top_px) {
 }
 
 async function setup() {
-    createCanvas(WIDTH_, HEIGHT_);
+    let cnv = createCanvas(WIDTH_, HEIGHT_);
+    cnv.elt.dir = "auto"; // מסדר סימני פיסוק בעברית ואנגלית בקנבס
     colorMode(HSB, 360, 100, 100, 100);
     background(0, 0, 100);
 
@@ -402,13 +403,15 @@ function draw() {
             textSize(70);
             text(title, 50, 50, WIDTH_, HEIGHT_ - 100);
             textSize(50);
-            text(accumulating_lyrics, 50, 200, WIDTH_, HEIGHT_);
+            let finish_title = 50 + textAscent() + textDescent()
+            text(accumulating_lyrics, 50, finish_title+50, WIDTH_, HEIGHT_);
         } else {
             textAlign(LEFT, TOP);
             textSize(70);
             text(title, 50, 50, WIDTH_, HEIGHT_ - 100);
             textSize(50);
-            text(accumulating_lyrics, 50, 200, WIDTH_, HEIGHT_);
+            let finish_title = 50 + textAscent() + textDescent()
+            text(accumulating_lyrics, 50, finish_title+50, WIDTH_, HEIGHT_);
         }
         pop();
         //text(accumulating_lyrics, 50, 200, WIDTH_, HEIGHT_);

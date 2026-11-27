@@ -392,16 +392,22 @@ function draw() {
         textFont(font);
         textAlign(CENTER, TOP);
         noStroke();
-        textSize(70);
-        text(title, 50, 50, WIDTH_, HEIGHT_ - 100);
-        textSize(50);
         
+        //text(title, 50, 50, WIDTH_, HEIGHT_ - 100);
+        
+
         push();
         if (text_dir === 'rtl') {
             textAlign(RIGHT, TOP);
+            textSize(70);
+            text(title, 50, 50, WIDTH_, HEIGHT_ - 100);
+            textSize(50);
             text(accumulating_lyrics, WIDTH_ - 50, 100);
         } else {
             textAlign(LEFT, TOP);
+            textSize(70);
+            text(title, 50, 50, WIDTH_, HEIGHT_ - 100);
+            textSize(50);
             text(accumulating_lyrics, 50, 100);
         }
         pop();

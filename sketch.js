@@ -379,6 +379,7 @@ function draw() {
                 title = track_name + ' - by ' + artist_name;
             else title = track_name + ' - מאת ' + artist_name;
 
+            title=cleanTitle(title)
             //playing preview of the song
             playItunesPreview(title);
 
@@ -438,4 +439,11 @@ function playItunesPreview(songName) {
   const script = document.createElement('script');
   script.src = `https://itunes.apple.com/search?term=${encodeURIComponent(songName)}&media=music&limit=1&callback=${callbackName}`;
   document.body.appendChild(script);
+}
+function cleanTitle(str) {
+  return str
+    .replace(/\s*[\(\[\{].*?[\)\]\}]/g, '') // removes (Paused), [Live], (2009 Remaster), etc.
+    .replace(/\s*-\s*(remaster|live|demo|edit|version|acoustic|instrumental).*$/i, '') // removes trailing "- Remastered"
+    .replace(/\s+/g, ' ')
+    .trim();
 }
